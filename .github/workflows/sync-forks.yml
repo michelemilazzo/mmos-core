@@ -1,0 +1,51 @@
+name: Daily Fork Sync
+
+on:
+  schedule:
+    - cron: '0 3 * * *'  # 03:00 UTC daily
+  workflow_dispatch:
+
+jobs:
+  sync-forks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync all michelemilazzo forks with upstream
+        env:
+          GH_TOKEN: ${{ secrets.SYNC_TOKEN }}
+        run: |
+          PAGE=1
+          SYNCED=0
+          FAILED=0
+
+          while true; do
+            REPOS=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
+              "https://api.github.com/user/repos?type=forks&per_page=100&page=$PAGE" \
+              | jq -r '.[] | select(.fork==true) | .full_name')
+
+            [ -z "$REPOS" ] && break
+
+            for REPO in $REPOS; do
+              DEFAULT_BRANCH=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
+                "https://api.github.com/repos/$REPO" | jq -r '.default_branch')
+
+              RESULT=$(curl -s -o /dev/null -w "%{http_code}" \
+                -X POST \
+                -H "Authorization: Bearer $GH_TOKEN" \
+                -H "Content-Type: application/json" \
+                -d "{\"branch\":\"$DEFAULT_BRANCH\"}" \
+                "https://api.github.com/repos/$REPO/merge-upstream")
+
+              if [ "$RESULT" = "200" ] || [ "$RESULT" = "409" ]; then
+                echo "OK [$RESULT]: $REPO"
+                SYNCED=$((SYNCED+1))
+              else
+                echo "SKIP [$RESULT]: $REPO"
+                FAILED=$((FAILED+1))
+              fi
+            done
+
+            PAGE=$((PAGE+1))
+          done
+
+          echo ""
+          echo "Done: $SYNCED synced, $FAILED skipped/failed"
