@@ -1,0 +1,178 @@
+:root {
+  --mmos-bg: #f3f7fb;
+  --mmos-card: #ffffff;
+  --mmos-border: #dbe4f0;
+  --mmos-accent: #0f766e;
+  --mmos-accent-strong: #0b5d57;
+  --mmos-text: #0f172a;
+  --mmos-muted: #64748b;
+  --mmos-success: #166534;
+  --mmos-warning: #b45309;
+  --mmos-danger: #b91c1c;
+  --mmos-radius: 16px;
+  --mmos-radius-sm: 10px;
+}
+
+.mmos-card {
+  background: var(--mmos-card);
+  border: 1px solid var(--mmos-border);
+  border-radius: var(--mmos-radius);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
+}
+
+.mmos-title {
+  font-size: 1rem;
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--mmos-text);
+}
+
+.mmos-sub {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--mmos-muted);
+}
+
+.mmos-btn-primary {
+  appearance: none;
+  border: 0;
+  border-radius: var(--mmos-radius-sm);
+  background: var(--mmos-accent);
+  color: #f8fffd;
+  font-weight: 700;
+  padding: 8px 12px;
+  line-height: 1.1;
+  cursor: pointer;
+}
+
+.mmos-btn-primary:hover {
+  background: var(--mmos-accent-strong);
+}
+
+.mmos-btn-secondary,
+.mmos-btn-danger {
+  appearance: none;
+  border-radius: var(--mmos-radius-sm);
+  font-weight: 700;
+  padding: 8px 12px;
+  line-height: 1.1;
+  cursor: pointer;
+}
+
+.mmos-btn-secondary {
+  border: 1px solid var(--mmos-border);
+  background: #ffffff;
+  color: var(--mmos-text);
+}
+
+.mmos-btn-danger {
+  border: 0;
+  background: var(--mmos-danger);
+  color: #fff7f7;
+}
+
+.mmos-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.mmos-status-safe,
+.mmos-status-ok {
+  background: rgba(22, 101, 52, 0.12);
+  color: var(--mmos-success);
+}
+
+.mmos-status-check,
+.mmos-status-follow_up,
+.mmos-status-monitor,
+.mmos-status-timeout,
+.mmos-status-cancelled {
+  background: rgba(180, 83, 9, 0.12);
+  color: var(--mmos-warning);
+}
+
+.mmos-status-investigate,
+.mmos-status-critical,
+.mmos-status-failed {
+  background: rgba(185, 28, 28, 0.12);
+  color: var(--mmos-danger);
+}
+
+.mmos-surface-header {
+  display: grid;
+  gap: 4px;
+}
+
+.mmos-inline-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.mmos-actions-wrapper {
+  position: relative;
+}
+
+.mmos-actions-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 200px;
+  padding: 6px 0;
+  background: #ffffff;
+  border: 1px solid var(--mmos-border);
+  border-radius: var(--mmos-radius-sm);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+  z-index: 20;
+}
+
+.mmos-action-item {
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  color: var(--mmos-text);
+  cursor: pointer;
+}
+
+.mmos-action-item:hover {
+  background: rgba(15, 118, 110, 0.08);
+}
+
+.mmos-adaptive-form {
+  margin-top: 14px;
+  display: grid;
+  gap: 10px;
+}
+
+.mmos-adaptive-form-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.mmos-adaptive-field {
+  display: grid;
+  gap: 5px;
+}
+
+.mmos-adaptive-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--mmos-text);
+}
+
+.mmos-adaptive-input,
+.mmos-adaptive-select {
+  width: 100%;
+  border: 1px solid var(--mmos-border);
+  border-radius: var(--mmos-radius-sm);
+  padding: 9px 10px;
+  font-size: 0.9rem;
+  color: var(--mmos-text);
+  background: #ffffff;
+}

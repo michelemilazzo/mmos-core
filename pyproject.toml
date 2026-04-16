@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mmos_core"
+version = "0.1.0"
+description = "MMOS AI control app for standalone Frappe v16"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["frappe>=16.0.0-dev,<17.0.0", "requests>=2.32,<3"]
+authors = [{name = "OneKeyCo", email = "admin@onekeyco.com"}]
+classifiers = [
+    "Framework :: Frappe",
+    "Programming Language :: Python :: 3",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.bench.dev-dependencies]

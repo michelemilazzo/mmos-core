@@ -1,0 +1,108 @@
+{
+ "actions": [],
+ "creation": "2026-03-31 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "mail_section",
+  "mail_enabled",
+  "mail_imap_host",
+  "mail_imap_port",
+  "mail_use_ssl",
+  "mail_username",
+  "mail_password",
+  "mail_smtp_host",
+  "mail_smtp_port",
+  "mail_reply_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "mail_section",
+   "fieldtype": "Section Break",
+   "label": "Mail Channel"
+  },
+  {
+   "default": "0",
+   "fieldname": "mail_enabled",
+   "fieldtype": "Check",
+   "label": "Mail Enabled"
+  },
+  {
+   "fieldname": "mail_imap_host",
+   "fieldtype": "Data",
+   "label": "IMAP Host"
+  },
+  {
+   "fieldname": "mail_imap_port",
+   "fieldtype": "Int",
+   "label": "IMAP Port"
+  },
+  {
+   "default": "1",
+   "fieldname": "mail_use_ssl",
+   "fieldtype": "Check",
+   "label": "Use SSL"
+  },
+  {
+   "fieldname": "mail_username",
+   "fieldtype": "Data",
+   "label": "Mail Username"
+  },
+  {
+   "fieldname": "mail_password",
+   "fieldtype": "Password",
+   "label": "Mail Password"
+  },
+  {
+   "fieldname": "mail_smtp_host",
+   "fieldtype": "Data",
+   "label": "SMTP Host"
+  },
+  {
+   "fieldname": "mail_smtp_port",
+   "fieldtype": "Int",
+   "label": "SMTP Port"
+  },
+  {
+   "fieldname": "mail_reply_from",
+   "fieldtype": "Data",
+   "label": "Reply From"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-03-31 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "MMOS Core",
+ "name": "MMOS Channel Config",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Administrator",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "states": [],
+ "track_changes": 1
+}

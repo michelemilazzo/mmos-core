@@ -1,0 +1,77 @@
+{% extends "templates/web.html" %}
+
+{% block title %}MMOS Chat{% endblock %}
+
+{% block page_content %}
+<div id="mmos-chat-root"
+     data-user="{{ user or '' }}"
+     data-is-guest="{{ 1 if is_guest else 0 }}"
+     data-csrf-token="{{ csrf_token or '' }}">
+  <div class="mmos-chat-shell">
+    <aside class="mmos-chat-sidebar">
+      <div class="mmos-chat-brand">
+        <div class="mmos-chat-mark">M</div>
+        <div>
+          <div class="mmos-chat-kicker">AI Workspace</div>
+          <h1>MMOS Chat</h1>
+          <p>Chat operativa con worker locali, monitoraggio separato e comandi naturali.</p>
+        </div>
+      </div>
+
+      <div class="mmos-chat-sidecard">
+        <span>Sessione</span>
+        <strong data-role="user">{{ user or 'Guest' }}</strong>
+        <small data-role="worker-summary">Caricamento stato worker...</small>
+      </div>
+
+      <div class="mmos-chat-sidecard">
+        <span>Quick prompts</span>
+        <div class="mmos-chat-quicklist">
+          <button type="button" data-prompt="a che punto siamo">Stato progetto</button>
+          <button type="button" data-prompt="dimmi solo i problemi reali">Problemi reali</button>
+          <button type="button" data-prompt="controlla press e dimmi cosa non va">Press</button>
+          <button type="button" data-prompt="controlla storage e backup">Storage</button>
+        </div>
+      </div>
+
+      <div class="mmos-chat-sidecard">
+        <span>Apri</span>
+        <div class="mmos-chat-links">
+          <a href="/app/mmos-monitor">Monitor</a>
+          <a href="/app/mmos-resources">Resources</a>
+          <a href="/app/mmos-updates">Updates</a>
+          <a href="/app/mmos-secrets">Secrets</a>
+        </div>
+      </div>
+    </aside>
+
+    <main class="mmos-chat-main">
+      <section class="mmos-chat-thread" data-role="thread"></section>
+
+      <section class="mmos-chat-composer">
+        <textarea
+          data-role="prompt"
+          placeholder="Scrivi come qui. Esempio: controlla tutti i nodi e dimmi solo i problemi reali."
+        ></textarea>
+        <div class="mmos-chat-composer-bar">
+          <div class="mmos-chat-status" data-role="status">Pronto.</div>
+          <div class="mmos-chat-actions">
+            <button type="button" class="secondary" data-action="reset">Nuova chat</button>
+            <button type="button" class="primary" data-action="send">Invia</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<link rel="stylesheet" href="/assets/mmos_core/css/mmos_chat.css">
+<script>
+  window.MMOS_CHAT_BOOT = {
+    user: "{{ user or '' }}",
+    is_guest: {{ 1 if is_guest else 0 }},
+    csrf_token: "{{ csrf_token or '' }}",
+  };
+</script>
+<script src="/assets/mmos_core/js/mmos_chat.js"></script>
+{% endblock %}
