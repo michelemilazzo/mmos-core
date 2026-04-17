@@ -1,4 +1,4 @@
-name: Daily Fork Sync
+name: Daily Fork Sync and Approve Releases
 
 on:
   schedule:
@@ -47,5 +47,38 @@ jobs:
             PAGE=$((PAGE+1))
           done
 
-          echo ""
           echo "Done: $SYNCED synced, $FAILED skipped/failed"
+
+  approve-releases:
+    runs-on: ubuntu-latest
+    needs: sync-forks
+    env:
+      PRESS_KEY: ${{ secrets.PRESS_API_KEY }}
+      PRESS_SECRET: ${{ secrets.PRESS_API_SECRET }}
+      PRESS_URL: ${{ secrets.PRESS_URL }}
+    steps:
+      - name: Approve all Draft App Releases in Press marketplace
+        run: |
+          # Get all Draft releases
+          RELEASES=$(curl -s -G "$PRESS_URL/api/method/frappe.client.get_list" \
+            --data-urlencode "doctype=App Release" \
+            --data-urlencode "fields=[\"name\",\"app\",\"hash\"]" \
+            --data-urlencode "filters=[[\"status\",\"=\",\"Draft\"]]" \
+            --data-urlencode "order_by=creation desc" \
+            --data-urlencode "limit=100" \
+            -H "Authorization: token $PRESS_KEY:$PRESS_SECRET" \
+            | jq -r '.message[] | "\(.name) \(.app)"')
+
+          COUNT=0
+          while IFS=' ' read -r NAME APP; do
+            [ -z "$NAME" ] && continue
+            STATUS=$(curl -s -X PUT "$PRESS_URL/api/resource/App%20Release/$NAME" \
+              -H "Authorization: token $PRESS_KEY:$PRESS_SECRET" \
+              -H "Content-Type: application/json" \
+              -d '{"status":"Approved"}' \
+              | jq -r '.data.status // "error"')
+            echo "Approved: $APP / $NAME -> $STATUS"
+            COUNT=$((COUNT+1))
+          done <<< "$RELEASES"
+
+          echo "Total approved: $COUNT"
